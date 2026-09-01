@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'wouter';
 import { Sidebar } from '@/components/Sidebar';
+import { BottomNav } from '@/components/BottomNav';
 import { ToastProvider } from '@/components/ui/Toast';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { NewWorkoutPage } from '@/pages/NewWorkoutPage';
@@ -15,9 +16,9 @@ export function App() {
     <ToastProvider>
       <div className="app-noise flex min-h-[100dvh] bg-background text-foreground">
         <Sidebar />
-        <main className="min-w-0 flex-1">
-          <div className="mx-auto w-full max-w-[1280px] px-5 py-6 sm:px-8 lg:px-12 lg:py-10">
-            {/* Top Breadcrumb Bar */}
+        <main className="min-w-0 flex-1 pb-24 md:pb-10">
+          <div className="mx-auto w-full max-w-[1280px] px-4 py-4 sm:px-8 lg:px-12 lg:py-10">
+            {/* Desktop Breadcrumb Bar */}
             <div className="mb-6 hidden items-center justify-between md:flex">
               <p
                 className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-muted-foreground font-bold"
@@ -43,6 +44,9 @@ export function App() {
             </Switch>
           </div>
         </main>
+
+        {/* Mobile Bottom App Bar */}
+        <BottomNav />
       </div>
     </ToastProvider>
   );

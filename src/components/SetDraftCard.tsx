@@ -21,10 +21,10 @@ export const SetDraftCard: React.FC<SetDraftCardProps> = ({
 }) => {
   return (
     <div
-      className="group relative rounded-2xl border border-border bg-background p-4 transition-colors hover:border-primary/30 sm:p-5"
+      className="group relative rounded-2xl border border-border bg-card p-4 transition-colors hover:border-primary/30 sm:p-5 ink-shadow"
       data-testid={`card-set-${index}`}
     >
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between">
         <span className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-bold">
           Set {String(index + 1).padStart(2, '0')}
         </span>
@@ -32,11 +32,11 @@ export const SetDraftCard: React.FC<SetDraftCardProps> = ({
           <button
             type="button"
             onClick={onRemove}
-            className="grid h-7 w-7 place-items-center rounded-lg text-muted-foreground opacity-60 transition-colors hover:bg-destructive/10 hover:text-destructive sm:opacity-0 sm:group-hover:opacity-100"
+            className="grid h-8 w-8 place-items-center rounded-xl bg-destructive/10 text-destructive active:scale-95 transition-transform"
             data-testid={`button-remove-set-${index}`}
             aria-label={`Remove set ${index + 1}`}
           >
-            <X size={15} />
+            <X size={16} />
           </button>
         )}
       </div>
@@ -51,35 +51,39 @@ export const SetDraftCard: React.FC<SetDraftCardProps> = ({
               list="exercise-suggestions"
               value={draft.exerciseName}
               onChange={(e) => onChange('exerciseName', e.target.value)}
-              placeholder="e.g. Barbell Back Squat"
+              placeholder="e.g. Barbell Squat"
               required
               data-testid={`input-exercise-${index}`}
-              className="h-11 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none transition-colors placeholder:text-muted-foreground/55 focus:border-primary focus:ring-2 focus:ring-primary/15"
+              className="h-12 w-full rounded-xl border border-input bg-background px-3 text-base sm:text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/55 focus:border-primary focus:ring-2 focus:ring-primary/15"
             />
           </label>
         </div>
 
-        <Input
-          label="Reps"
-          value={draft.reps}
-          onChange={(e) => onChange('reps', e.target.value)}
-          placeholder="8"
-          type="number"
-          min="1"
-          required
-          testId={`input-reps-${index}`}
-        />
+        <div className="grid grid-cols-2 gap-2 sm:contents">
+          <Input
+            label="Reps"
+            value={draft.reps}
+            onChange={(e) => onChange('reps', e.target.value)}
+            placeholder="8"
+            type="number"
+            inputMode="numeric"
+            min="1"
+            required
+            testId={`input-reps-${index}`}
+          />
 
-        <Input
-          label="Weight (kg)"
-          value={draft.weightKg}
-          onChange={(e) => onChange('weightKg', e.target.value)}
-          placeholder="Optional"
-          type="number"
-          min="0"
-          step="0.5"
-          testId={`input-weight-${index}`}
-        />
+          <Input
+            label="Weight (kg)"
+            value={draft.weightKg}
+            onChange={(e) => onChange('weightKg', e.target.value)}
+            placeholder="Optional"
+            type="number"
+            inputMode="decimal"
+            min="0"
+            step="0.5"
+            testId={`input-weight-${index}`}
+          />
+        </div>
       </div>
 
       <div className="mt-3">

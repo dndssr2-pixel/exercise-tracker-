@@ -23,8 +23,12 @@ export const Input: React.FC<InputProps> = ({
   testId,
   error,
   suffix,
+  inputMode,
   ...props
 }) => {
+  // Automatically optimize keyboard on mobile for numbers
+  const computedInputMode = inputMode || (type === 'number' ? (step && step.toString().includes('.') ? 'decimal' : 'numeric') : undefined);
+
   return (
     <label className="block text-left">
       {label && (
@@ -36,6 +40,7 @@ export const Input: React.FC<InputProps> = ({
       <div className="relative">
         <input
           type={type}
+          inputMode={computedInputMode}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -46,15 +51,15 @@ export const Input: React.FC<InputProps> = ({
           disabled={disabled}
           data-testid={testId}
           className={cn(
-            'h-11 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/55 focus:border-primary focus:ring-2 focus:ring-primary/15 disabled:opacity-60',
+            'h-12 w-full rounded-xl border border-input bg-background px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/55 focus:border-primary focus:ring-2 focus:ring-primary/15 disabled:opacity-60 sm:text-sm',
             error && 'border-destructive focus:border-destructive focus:ring-destructive/15',
-            suffix && 'pr-10',
+            suffix && 'pr-12',
             className
           )}
           {...props}
         />
         {suffix && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-muted-foreground select-none pointer-events-none">
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-muted-foreground select-none pointer-events-none">
             {suffix}
           </span>
         )}

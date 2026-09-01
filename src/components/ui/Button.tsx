@@ -21,27 +21,32 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const variantStyles = {
     primary:
-      'bg-primary text-primary-foreground shadow-ink-sm hover:-translate-y-0.5 hover:shadow-ink-md active:translate-y-0 active:shadow-none border border-transparent',
+      'bg-primary text-primary-foreground shadow-ink-sm hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] border border-transparent',
     quiet:
-      'bg-muted text-foreground hover:bg-accent/40 active:bg-accent/50 border border-transparent',
+      'bg-muted text-foreground hover:bg-accent/40 active:bg-accent/50 active:scale-[0.98] border border-transparent',
     outline:
-      'border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 active:bg-primary/10',
+      'border border-border bg-card text-foreground hover:border-primary/50 hover:bg-primary/5 active:bg-primary/10 active:scale-[0.98]',
     danger:
-      'border border-destructive/20 bg-destructive/8 text-destructive hover:bg-destructive/15 active:bg-destructive/20',
+      'border border-destructive/20 bg-destructive/8 text-destructive hover:bg-destructive/15 active:bg-destructive/20 active:scale-[0.98]',
     accent:
-      'bg-accent text-accent-foreground shadow-ink-dark hover:-translate-y-0.5 active:translate-y-0 border border-transparent',
+      'bg-accent text-accent-foreground shadow-ink-dark hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] border border-transparent',
     secondary:
-      'bg-secondary text-secondary-foreground hover:opacity-90 active:scale-[0.99] border border-transparent',
+      'bg-secondary text-secondary-foreground hover:opacity-90 active:scale-[0.98] border border-transparent',
   };
 
   const sizeStyles = {
-    sm: 'min-h-8 px-3 text-xs font-semibold rounded-lg',
-    md: 'min-h-10 px-4 text-sm font-bold rounded-xl',
-    lg: 'min-h-12 px-6 text-base font-bold rounded-xl',
+    sm: 'min-h-9 px-3 text-xs font-semibold rounded-xl',
+    md: 'min-h-12 px-4 text-sm font-bold rounded-xl',
+    lg: 'min-h-14 px-6 text-base font-bold rounded-2xl',
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     sound.playClick();
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        navigator.vibrate(15);
+      } catch {}
+    }
     if (onClick) onClick(e);
   };
 
@@ -52,7 +57,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       data-testid={testId}
       className={cn(
-        'inline-flex items-center justify-center gap-2 transition-all duration-150 select-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none',
+        'inline-flex items-center justify-center gap-2 transition-all duration-150 select-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:active:scale-100 touch-manipulation',
         variantStyles[variant],
         sizeStyles[size],
         className

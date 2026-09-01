@@ -35,50 +35,27 @@
     --radius: 0.75rem;
   }
 
-  .dark {
-    --background: 205 25% 12%;
-    --foreground: 39 38% 96%;
-    --card: 205 24% 16%;
-    --card-foreground: 39 38% 96%;
-    --card-border: 205 20% 25%;
-    --popover: 205 24% 16%;
-    --popover-foreground: 39 38% 96%;
-    --primary: 14 74% 58%;
-    --primary-foreground: 205 25% 12%;
-    --secondary: 174 32% 45%;
-    --secondary-foreground: 205 25% 12%;
-    --muted: 205 20% 22%;
-    --muted-foreground: 205 14% 70%;
-    --accent: 44 91% 59%;
-    --accent-foreground: 205 25% 12%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 39 38% 98%;
-    --border: 205 20% 25%;
-    --input: 205 20% 25%;
-    --ring: 14 74% 58%;
-    
-    --sidebar: 205 28% 9%;
-    --sidebar-foreground: 39 38% 96%;
-    --sidebar-border: 205 20% 19%;
-    --sidebar-primary: 14 74% 58%;
-    --sidebar-primary-foreground: 205 25% 12%;
-    --sidebar-accent: 205 22% 17%;
-    --sidebar-accent-foreground: 39 38% 96%;
-  }
-
   * {
     @apply border-border;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Prevent text zoom on iOS input focus */
+  @media screen and (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
-/* Tactile editorial effects */
 .ink-shadow {
   box-shadow: 0 2px 8px -2px rgba(44, 30, 20, 0.06), 0 1px 2px rgba(44, 30, 20, 0.04);
 }
@@ -93,21 +70,16 @@
   background-size: 24px 24px;
 }
 
-/* Custom scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 4.5rem);
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
   border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
 }

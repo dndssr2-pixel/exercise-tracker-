@@ -5,16 +5,14 @@ import {
   PlusCircle,
   Dumbbell,
   Layers,
-  Sparkles,
   ChevronRight,
-  Menu,
-  X,
   Timer,
   Calculator,
   Settings,
   Flame,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { sound } from '@/lib/audio';
 import { RestTimerDrawer } from './RestTimer';
 import { PlateCalculatorModal } from './PlateCalculatorModal';
 
@@ -24,7 +22,7 @@ export const Logo: React.FC = () => {
       <span className="relative grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-ink-sm transition-transform duration-200 group-hover:-translate-y-0.5">
         <Dumbbell size={19} strokeWidth={2.4} />
       </span>
-      <span>
+      <span className="text-left">
         <span className="block font-display text-lg leading-none tracking-tight font-bold">Lift Log</span>
         <span className="mt-1 block font-mono-ui text-[9px] uppercase tracking-[0.22em] text-sidebar-foreground/55 font-medium">
           private training journal
@@ -36,7 +34,6 @@ export const Logo: React.FC = () => {
 
 export const Sidebar: React.FC = () => {
   const [location] = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [timerOpen, setTimerOpen] = useState(false);
   const [plateCalcOpen, setPlateCalcOpen] = useState(false);
 
@@ -54,7 +51,7 @@ export const Sidebar: React.FC = () => {
       <aside className="hidden min-h-[100dvh] w-[248px] shrink-0 flex-col bg-sidebar px-6 py-7 text-sidebar-foreground md:flex">
         <Logo />
 
-        <div className="mt-12">
+        <div className="mt-12 text-left">
           <p className="mb-3 px-3 font-mono-ui text-[10px] uppercase tracking-[0.2em] text-sidebar-foreground/45 font-medium">
             Your training
           </p>
@@ -92,14 +89,17 @@ export const Sidebar: React.FC = () => {
         </div>
 
         {/* Quick Tools */}
-        <div className="mt-8">
+        <div className="mt-8 text-left">
           <p className="mb-3 px-3 font-mono-ui text-[10px] uppercase tracking-[0.2em] text-sidebar-foreground/45 font-medium">
             Gym Utilities
           </p>
           <div className="space-y-1">
             <button
-              onClick={() => setTimerOpen(true)}
-              className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground transition-colors text-left"
+              onClick={() => {
+                sound.playClick();
+                setTimerOpen(true);
+              }}
+              className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground transition-colors text-left cursor-pointer"
             >
               <span className="grid h-6 w-6 place-items-center rounded-md bg-sidebar-foreground/8 text-accent">
                 <Timer size={13} />
@@ -108,8 +108,11 @@ export const Sidebar: React.FC = () => {
             </button>
 
             <button
-              onClick={() => setPlateCalcOpen(true)}
-              className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground transition-colors text-left"
+              onClick={() => {
+                sound.playClick();
+                setPlateCalcOpen(true);
+              }}
+              className="w-full flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-semibold text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground transition-colors text-left cursor-pointer"
             >
               <span className="grid h-6 w-6 place-items-center rounded-md bg-sidebar-foreground/8 text-secondary">
                 <Calculator size={13} />
@@ -120,7 +123,7 @@ export const Sidebar: React.FC = () => {
         </div>
 
         {/* Daily Note Quote Card */}
-        <div className="mt-auto rounded-2xl border border-sidebar-border bg-sidebar-accent/50 p-4">
+        <div className="mt-auto rounded-2xl border border-sidebar-border bg-sidebar-accent/50 p-4 text-left">
           <div className="mb-3 flex items-center justify-between">
             <span className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-sidebar-foreground/50 font-medium">
               Daily note
@@ -137,53 +140,33 @@ export const Sidebar: React.FC = () => {
         </div>
       </aside>
 
-      {/* Mobile Top Navigation */}
-      <div className="sticky top-0 z-40 border-b border-border bg-background/95 px-5 py-4 backdrop-blur md:hidden">
-        <div className="flex items-center justify-between">
-          <Logo />
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setTimerOpen(true)}
-              className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-card text-foreground hover:border-primary/40 transition-colors"
-              aria-label="Open rest timer"
-            >
-              <Timer size={18} />
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen((c) => !c)}
-              className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-card text-foreground transition-colors hover:border-primary/40"
-              data-testid="button-mobile-menu"
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {mobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
-            </button>
-          </div>
-        </div>
+      {/* Mobile Sleek Top Navigation */}
+      <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur-md md:hidden">
+        <Logo />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              sound.playClick();
+              setTimerOpen(true);
+            }}
+            className="flex items-center gap-1.5 rounded-xl border border-border bg-muted/70 px-3 py-1.5 text-xs font-bold text-foreground active:bg-border transition-colors cursor-pointer"
+            aria-label="Open rest timer"
+          >
+            <Timer size={15} className="text-primary" />
+            <span>Timer</span>
+          </button>
 
-        {/* Mobile Dropdown Nav */}
-        {mobileMenuOpen && (
-          <nav className="animate-pop-in pt-4 pb-2" aria-label="Mobile navigation">
-            <div className="grid grid-cols-2 gap-2">
-              {mainNav.map(({ href, label, icon: Icon }) => {
-                const active = href === '/' ? location === '/' : location.startsWith(href);
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={cn(
-                      'flex items-center gap-2 rounded-xl px-3 py-3 text-xs font-bold transition-colors',
-                      active ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'
-                    )}
-                    data-testid={`link-mobile-nav-${label.toLowerCase().replace(/\s+/g, '-')}`}
-                  >
-                    <Icon size={15} /> {label}
-                  </Link>
-                );
-              })}
-            </div>
-          </nav>
-        )}
+          <button
+            onClick={() => {
+              sound.playClick();
+              setPlateCalcOpen(true);
+            }}
+            className="grid h-8 w-8 place-items-center rounded-xl border border-border bg-muted/70 text-foreground active:bg-border transition-colors cursor-pointer"
+            aria-label="Open plate calculator"
+          >
+            <Calculator size={15} className="text-secondary" />
+          </button>
+        </div>
       </div>
 
       {/* Modals / Drawers */}

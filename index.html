@@ -2,13 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-    <title>Lift Log — Private Exercise & Set Tracker</title>
-    <meta name="description" content="A warm, focused training journal to log workouts, track sets & reps, and build real strength." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Lift Log — Workout Tracker</title>
+    <meta name="description" content="A warm, tactile workout and exercise set tracker designed for phone and desktop." />
     
-    <!-- PWA & Mobile App Meta Tags -->
+    <!-- Mobile App & PWA Meta Tags -->
     <link rel="manifest" href="./manifest.json" />
     <meta name="theme-color" content="#23333F" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Lift Log" />
@@ -19,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-background text-foreground antialiased selection:bg-accent/45">
+  <body class="bg-background text-foreground antialiased selection:bg-accent/45 touch-manipulation">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
